@@ -23,15 +23,17 @@ def get_animal_data(animals_data):
         diet = animal["characteristics"].get("diet")
         location = animal["locations"][0]
         animal_type = animal["characteristics"].get("type")
+        output += '<li class = "cards_item">'
         if name is not None:
-            output += f"Name: {name}\n"
+            output += f"Name: {name}<br/>\n"
         if diet is not None:
-            output += f"Diet: {diet}\n"
+            output += f"Diet: {diet}<br/>\n"
         if location is not None:
-            output += f"Lokation: {location}\n"
+            output += f"Location: {location}<br/>\n"
         if animal_type is not None:
-            output += f"Type: {animal_type}\n"
+            output += f"Type: {animal_type}<br/>\n"
         output += "\n"  # Empty print for spacing
+        output += '</li>'
     print(output)
     return output
 
