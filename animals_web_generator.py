@@ -1,5 +1,4 @@
 import json
-from os import write
 
 
 def load_data(file_path):
@@ -17,26 +16,30 @@ def get_animal_data(animals_data):
     - Type
     """
     output = ""  # define an empty string
-    for animal in animals_data:
+    for animal_obj in animals_data:
         # append information to each string
-        name = animal.get("name")
-        diet = animal["characteristics"].get("diet")
-        location = animal["locations"][0]
-        animal_type = animal["characteristics"].get("type")
-        output += '<li class = "cards_item">'
-        if name is not None:
-            output += f'<div class="card__title">Name: {name}</div>\n'
-        output += '<p class="card__text">'
-        if diet is not None:
-            output += f'<strong>Diet:</strong> {diet}<br/>\n'
-        if location is not None:
-            output += f'<strong>Location:</strong> {location}<br/>\n'
-        if animal_type is not None:
-            output += f'<strong>Type:</strong> {animal_type}<br/>\n'
-        output += '</p>'
-        output += '</li>'
-        output += '\n'  # Empty print for spacing
-    print(output)
+        output += serialize_animal(animal_obj)
+    return output
+
+def serialize_animal(animal_obj):
+    output = ""
+    name = animal_obj.get("name")
+    diet = animal_obj["characteristics"].get("diet")
+    location = animal_obj["locations"][0]
+    animal_type = animal_obj["characteristics"].get("type")
+    output += '<li class = "cards_item">'
+    if name is not None:
+        output += f'<div class="card__title">Name: {name}</div>\n'
+    output += '<p class="card__text">'
+    if diet is not None:
+        output += f'<strong>Diet:</strong> {diet}<br/>\n'
+    if location is not None:
+        output += f'<strong>Location:</strong> {location}<br/>\n'
+    if animal_type is not None:
+        output += f'<strong>Type:</strong> {animal_type}<br/>\n'
+    output += '</p>'
+    output += '</li>'
+    output += '\n'  # Empty print for spacing
     return output
 
 def read_template(template_path):
@@ -59,8 +62,6 @@ def main():
     template = read_template('animals_template.html')
     animals_text = add_animals_to_template(template, output)
     write_animals_file(animals_text)
-
-
 
 
 if __name__ == '__main__':
